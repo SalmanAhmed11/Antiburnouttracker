@@ -4,4 +4,7 @@ Store only **reviewed reusable prompts** that define a task, its source inputs, 
 
 Before using a prompt: check `AGENTS.md`, `docs/operations/CURRENT_STATE.md` and the decision register. A prompt cannot override the current approval gate.
 
-- `002-review-import-governance.md` — reviewed documentation-only baseline import, without unauthorised code or tool installs.
+- `000-resume-project.md` — Turnkey prompt for a fresh AI session to resume work from GitHub without hallucinating.
+- `001-product-decision-workshop.md` — Step-by-step interview prompt for reviewing and resolving product decisions.
+- `002-review-import-governance.md` — Documentation-only baseline import and governance verification prompt.
+- `003-code-review.md` — Professional 10-point code review workflow based on Google Engineering Practices and Flutter quality standards.

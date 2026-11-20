@@ -2,6 +2,11 @@
 
 **Status: proposed architecture only. No production choices approved by this document.** Do not start source code, schema or cloud provisioning merely because this plan exists.
 
+## Target Platform & Deployment Boundaries
+- **In Scope:** Native Android and native iOS application developed with a shared Flutter/Dart codebase. Platform-specific implementations only where technically necessary.
+- **Excluded from Scope:** Flutter Web deployment, Progressive Web Apps (PWA), Cloudflare Pages hosting, and separate web-based betas.
+- **Backend Candidate:** Supabase is the preferred candidate (authentication, PostgreSQL, Row Level Security, Edge Functions, server-authoritative scoring); adoption remains subject to formal ADR evaluation.
+
 ## Architecture decision records to produce before code
 
 | ADR | Question | Alternatives / necessary evidence |
@@ -16,7 +21,7 @@
 | ADR-008 | AI Coach architecture | LLM API security, limited context, tool permissions, safety, evaluation and memory retention |
 | ADR-009 | Billing and entitlements | iOS/Android store handling, receipts, grace, refund, restoration and offline feature enforcement |
 | ADR-010 | Observability and operations | Sanitised logs, error reporting, alerting, backups, restores, SLO/RTO/RPO targets |
-| ADR-011 | App release | Android signing, iOS macOS build, beta channels, CI/CD gates and rollback |
+| ADR-011 | App release & beta channels | Android signing, Google Play internal/closed testing, iOS macOS build, Apple TestFlight, CI/CD gates, rollback |
 | ADR-012 | Notification and time policy | Quiet hours, delivery reliability, consent, DST/travel, reminder and due-time semantics |
 
 ## Provisional logical boundaries (illustrative)
@@ -24,7 +29,7 @@
 - Domain/application services: coordinate approved business rules; **critical awards are verified by a trusted server**.
 - Authenticated storage: PostgreSQL/other selected persistent backend, row-level ownership and audited changes.
 - Backend commands: validate requests, prevent replay/double XP, record ledger and check-in atomically; authorize every object access.
-- AI orchestration: minimum necessary user context, no secrets in mobile client, restricted operations and explicit user approvals.
+- AI orchestration: minimum necessary user context, no server secrets in mobile client, restricted operations and explicit user approvals.
 - Client offline draft/cache: behaviour depends on PD-13; no fabricated confirmed progress.
 
 ## Required design outputs
