@@ -19,6 +19,8 @@
 ## OWNER-APPROVED DIRECTIONS — 20 November 2026
 These choices were expressly selected by the product owner in conversation on 2026-11-20. They are product directions, not final API schemas or all numeric edge cases.
 
+- **Platform & Delivery:** Native iOS and Android application built using a shared Flutter/Dart codebase; platform-specific implementations only when technically necessary. Flutter Web deployment, Progressive Web Apps (PWA), Cloudflare Pages hosting, and separate web-based betas are **explicitly out of current scope**.
+- **Backend Architecture Candidate:** Supabase is the preferred backend candidate (authentication, PostgreSQL, Row Level Security, Edge Functions, server-authoritative scoring), preserved for formal evaluation under ADR-003, ADR-004, ADR-006, and ADR-007.
 - **XP:** 100 base XP for a completed original target; proportional XP for an agreed qualifying reduction; level thresholds increase progressively. Exact curve, minimum scoring and anti-farming protections OPEN.
 - **Weekly goals:** both session-count and quantity-based quotas supported. Distinct eligible days for session-count goals as a current direction; partial weeks, deadlines and duplicate checks OPEN.
 - **Shields:** manually earned and used; **one shield per 600 XP, maximum two stored**; an eligible shielded miss awards no XP. The originally offered Option A specified protection of up to two consecutive scheduled misses. Detailed weekly-shortfall interaction OPEN.
