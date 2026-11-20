@@ -1,0 +1,28 @@
+# Local credentials / private environment values
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.p8
+*.jks
+*.keystore
+secrets/
+private/
+credentials.json
+service-account*.json
+
+# Local temporary state / IDE outputs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.log
+__pycache__/
+node_modules/
+.dart_tool/
+.build/
+build/
+
+# Flutter's generated .gitignore should be reconciled when Flutter is scaffolded.
