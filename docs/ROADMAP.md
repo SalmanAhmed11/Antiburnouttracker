@@ -10,7 +10,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Agree branching and approval process; configure protections where available.
 - [x] Perform read-only environment audit (Git, Flutter/Dart, Android SDK, Node, workspace permissions).
 - [ ] Keep project-owned agent skills in `.agents/skills/` only when individually reviewed; don't bulk install untrusted repos.
-      **Gate accepted when:** fresh clone and new Antigravity conversation can state exact phase, approved rules, active task and blockers without invented assumptions.
+
+**Gate accepted when:** fresh clone and new Antigravity conversation can state exact phase, approved rules, active task and blockers without invented assumptions.
 
 ## Gate 1 — Product rules and acceptance criteria (DRAFT)
 
@@ -20,7 +21,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Create requirement IDs, user stories, invariants and acceptance scenarios for every critical action.
 - [ ] Define free versus Plus entitlement matrix; success/guardrail metrics.
 - [ ] Classify MVP / beta / deferred scope; identify legal, privacy and store-policy questions.
-      **Gate accepted when:** all launch-critical behaviours are unambiguous or explicitly deferred; no unapproved numerical mechanics remain in an implementation prompt.
+
+**Gate accepted when:** all launch-critical behaviours are unambiguous or explicitly deferred; no unapproved numerical mechanics remain in an implementation prompt.
 
 ## Gate 2 — Editable UI/UX and user flow validation (DRAFT)
 
@@ -33,7 +35,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Link all 8 core flows, validate back/forward/cancel confirmation and empty/error states.
 - [ ] Run accessibility checks and formative usability walkthroughs; record fixes.
 - [ ] Freeze approved design version and export reviewed snapshots/links.
-      **Gate accepted when:** selected user journeys are prototype-testable and the implementation agent need not invent screens or states.
+
+**Gate accepted when:** selected user journeys are prototype-testable and the implementation agent need not invent screens or states.
 
 ## Gate 3 — Architecture and security design (NOT STARTED)
 
@@ -43,7 +46,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Map trust boundaries, AI tool permissions, data retention, privacy and threat model.
 - [ ] Define NFR targets (performance, accessibility, availability, privacy, cost, recovery).
 - [ ] Record deployment environments, rollback approach and Apple/Android tooling prerequisites.
-      **Gate accepted when:** important choices have recorded alternatives, tradeoffs, rationale and validation plans.
+
+**Gate accepted when:** important choices have recorded alternatives, tradeoffs, rationale and validation plans.
 
 ## Gate 4 — Engineering environment and implementation slices (NOT STARTED)
 
@@ -52,7 +56,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Establish CI for formatting, static analysis, unit/widget/integration tests and secret scanning.
 - [ ] Implement design system first; then one narrowly scoped vertical feature at a time using tests and reviewed PRs.
 - [ ] Check UX fidelity dark/light and business rules against approved design/acceptance criteria.
-      **Gate accepted per slice:** passing evidence + review + implementation explanation + owner approval.
+
+**Gate accepted per slice:** passing evidence + review + implementation explanation + owner approval.
 
 ## Gate 5 — Beta readiness and launch (NOT STARTED)
 
@@ -61,7 +66,8 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 - [ ] Monitoring, crash reporting, backup restore and incident response rehearsed.
 - [ ] Privacy/legal/store listing and subscription compliance reviewed.
 - [ ] Distribution build verified, beta signoff and rollback plan recorded.
-      **Gate accepted when:** release risks are explicitly assessed and the owner authorises the specific build.
+
+**Gate accepted when:** release risks are explicitly assessed and the owner authorises the specific build.
 
 ## Gate 6 — Ongoing maintenance (NOT STARTED)
 
