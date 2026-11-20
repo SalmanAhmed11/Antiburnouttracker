@@ -5,9 +5,9 @@ This is a **living checklist**, not a calendar promise. Gate statuses are eviden
 ## Gate 0 — Continuity and control (DRAFT)
 - [x] Create GitHub repository (existing README; no application code verified).
 - [x] Prepare portable rules/roadmap/current-state/decision register (this starter pack; merge pending).
-- [ ] Review and merge documentation via PR; verify `AGENTS.md` loads in Antigravity.
+- [x] Review and merge documentation via PR; verify `AGENTS.md` loads in Antigravity.
 - [ ] Agree branching and approval process; configure protections where available.
-- [ ] Perform read-only environment audit (Git, Flutter/Dart, Android SDK, Node, workspace permissions).
+- [x] Perform read-only environment audit (Git, Flutter/Dart, Android SDK, Node, workspace permissions).
 - [ ] Keep project-owned agent skills in `.agents/skills/` only when individually reviewed; don't bulk install untrusted repos.
 **Gate accepted when:** fresh clone and new Antigravity conversation can state exact phase, approved rules, active task and blockers without invented assumptions.
 
