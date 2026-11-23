@@ -4,12 +4,14 @@ This is an **evidence-driven, slice-scoped roadmap**, not a calendar promise. It
 
 ## Governance & Approval Hierarchy
 
-Each development slice operates under distinct lifecycle checkpoints:
+Each development slice operates under four distinct lifecycle checkpoints:
 1. **Permission to begin a slice:** Explicit owner approval of the slice's prerequisite product decisions, ADRs, and implementation boundaries.
 2. **Completion of a slice:** Verifiable deliverables, passing invariant/negative/authorization tests, security/accessibility checks, code review, and explicit owner sign-off.
-3. **Readiness for free external closed beta testing:** Internal Slices 0–5 completed, verified on Android (Google Play internal/closed testing) and iOS (Apple TestFlight). Validates complete core experience: habit tracking, dynamic AI coach, yellow de-escalation, recovery mechanics, and insights. *Note: Free beta testing explicitly requires zero paid subscription infrastructure, in-app purchases, or final consumer pricing.*
-4. **Paid subscription implementation & testing:** StoreKit and Google Play Billing integration, server-side receipt validation, and entitlement gating tested in sandbox environments. Requires separate prior owner approval of PD-16 (pricing & AI quotas) and ADR-009 before implementation.
-5. **Readiness for public app store release:** Slice 6 completed, in-app purchases and receipt validation verified, privacy/legal compliance signed off, production telemetry active, and owner-authorised release build.
+3. **Readiness for external beta testing:**
+   - **Sub-stage A: Free internal/closed native beta distribution:** Internal Slices 0–5 completed, verified on Android (Google Play internal/closed testing) and iOS (Apple TestFlight). *Note: Free beta testing explicitly does not require final subscription pricing or completed purchase infrastructure unless the beta specifically includes paid features.*
+   - **Sub-stage B: Paid subscription implementation & testing:** StoreKit (iOS) and Google Play Billing integration, server-side receipt validation, sandbox testing, and entitlement provisioning (Slice 6). Paid store entitlements require separate owner approval and verification before those features are distributed.
+4. **Readiness for public app store release:**
+   - **Sub-stage C: Public store release readiness:** Slice 6 completed, public store listings, terms/privacy policy compliance, production telemetry active, and owner-authorised release build.
 
 ### Non-Negotiable Engineering Principles
 - **Dynamic AI Coach:** Generates natural, context-aware dialogue; never static decision trees or scripted responses.
@@ -28,12 +30,12 @@ Each development slice operates under distinct lifecycle checkpoints:
 | Slice | Focus Area | Prerequisite ADRs | Required Product Decisions | Decisions Deferred | Earliest Build Milestone |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Slice 0** | Flutter Native Foundation & Design System | ADR-001, ADR-002 | Verified Stitch design tokens (unverified colors remain PROPOSED) | Gamification math, backend, AI prompts, billing | **Yes (Earliest buildable Flutter feature)** |
-| **Slice 1** | Habit Domain, Auth, Scheduling & XP Ledger | ADR-003, ADR-004, ADR-005, ADR-006, ADR-012 (minimal timezone subset) | Habit entity, recurrence (PD-03 subset), minimal timezone (PD-04 subset), duplicate check-in (PD-05 OPEN until approved), missed-commitment criteria, 100 XP Green (LOCKED) | Yellow proportional formulas, shields, pause, full notifications, pricing | No (Requires Slice 0 shell & backend setup) |
+| **Slice 1** | Habit Domain, Auth, Scheduling & XP Ledger | ADR-003, ADR-004, ADR-005, ADR-006 | Habit entity, recurrence, minimal timezone (PD-04), minimal duplicate check-in (PD-05 remains OPEN), 100 XP Green (LOCKED) | Yellow proportional formulas, shields, pause, pricing | No (Requires Slice 0 shell & backend setup) |
 | **Slice 2** | Early Dynamic AI Coach Proof of Concept | ADR-008 | Coach persona (2 characters, custom name, Easy/Med/Hard tone) (LOCKED), UI consent contract | Proportional scoring math, long-term memory, billing | No (Requires Slice 1 habit domain & auth) |
 | **Slice 3** | Yellow Renegotiation & Proportional Ledger | ADR-004 (extension) | PD-01 (proportional scoring), PD-06 (timing cutoff), PD-07 (below-minimum) | Shields, emergency pause, comeback cooldowns | No (Requires Slice 1 ledger & Slice 2 UI) |
-| **Slice 4** | Recovery Mechanics (Shields, Pause, Comeback) | ADR-007, ADR-012 (full) | PD-08..PD-11 (Shield 600 XP/wallet 2 LOCKED; pause boundaries, comeback badge) | Subscription pricing & commercial limits | No (Requires Slice 1 & 3 scoring engine) |
+| **Slice 4** | Recovery Mechanics (Shields, Pause, Comeback) | ADR-007, ADR-012 | PD-08..PD-11 (Shield 600 XP/wallet 2 LOCKED; pause boundaries, comeback badge) | Subscription pricing & commercial limits | No (Requires Slice 1 & 3 scoring engine) |
 | **Slice 5** | Insights, Progress, Levels & Complete Journey | ADR-010 | PD-02 (Level curve thresholds & caps), analytics definitions | Subscription billing | No (Requires Slices 1–4 tracking data) |
-| **Slice 6** | Monetization, Store Compliance & Release Readiness | ADR-009, ADR-011 | PD-16 (Tier pricing, AI allowances) — *Paid monetization deferred from free beta* | Future post-beta features (PD-17) | External Beta & Public Release |
+| **Slice 6** | Monetization, Store Compliance & Beta Release | ADR-009, ADR-011 | PD-16 (Tier pricing, AI allowances) — *Paid monetization deferred from free beta* | Future post-beta features (PD-17) | External Beta & Public Release |
 
 ---
 
@@ -61,13 +63,12 @@ Each development slice operates under distinct lifecycle checkpoints:
 ### Slice 1: Habit Domain, Authentication, Scheduling, Secure Check-ins & XP Ledger Foundation
 * **Objective:** Deliver truthful habit scheduling, user authentication, baseline daily check-in (Green = 100 base XP; Missed = Red), and server-authoritative atomic XP ledger.
 * **Approved Stitch References:** Screens 03 (Account Access), 06 (Today), 07 (My Habits), 10 (Habit Goal), 11 (Schedule/Minimum), 12 (Review Commitment).
-* **Required Product Decisions:** Habit entity schema, recurrence types (daily, fixed days, weekly quota from PD-03 subset), minimal timezone boundaries (PD-04 subset / ADR-012 subset), duplicate check-in rules (PD-05 remains OPEN pending explicit owner approval of single vs multi-session daily limits), missed-commitment criteria, 100 base reference XP for full Green completion (LOCKED).
+* **Required Product Decisions:** Habit entity schema, recurrence types (daily, fixed days, weekly quota), minimal timezone and day-boundary semantics (PD-04, coordinated with minimal day-boundary subset of ADR-012), minimal duplicate check-in rule (note: PD-05 remains OPEN until the owner explicitly approves its implementation rule), missed-commitment definition; 100 base reference XP for full Green completion (LOCKED). Full notification and recovery policy remains deferred until later slices.
 * **Required ADRs:**
   - `ADR-003` (Backend Boundary: Supabase client & Edge Functions).
   - `ADR-004` (Data Ownership, Atomic Ledger & Scoring: **mandatory before implementing server-authoritative XP awards**).
   - `ADR-005` (Data Model & Migrations: users, habits, recurrence, check-in records).
   - `ADR-006` (Authentication & Authorization: Apple/Google/email auth, Row Level Security).
-  - `ADR-012` (Subset: minimal timezone and local midnight due cutoff; push notifications and quiet hours deferred to Slice 4).
 * **Decisions That Can Remain Open:** Yellow proportional formulas, non-measurable micro-step scoring, shield shortfall logic, comeback windows, subscription billing.
 * **Implementation Boundaries:** Habit CRUD, local/server check-in, atomic XP ledger. No Yellow reductions, no AI coach.
 * **TDD & Verification:**
@@ -122,7 +123,7 @@ Each development slice operates under distinct lifecycle checkpoints:
 * **Required Product Decisions:** PD-08..PD-11 (Shield exchange 600 XP = 1 shield, max 2 wallet stored; shield application to daily/weekly quotas; indefinite emergency pause; comeback window & badge rules).
 * **Required ADRs:**
   - `ADR-007` (Offline Caching & Sync Reconciliation: offline queued check-ins, optimistic UI vs confirmed server status).
-  - `ADR-012` (Notification & Time Policy: full push notification triggers, quiet hours, timezones, due cutoffs).
+  - `ADR-012` (Notification & Time Policy: quiet hours, timezones, due cutoffs).
 * **Decisions That Can Remain Open:** Subscription pricing and billing.
 * **Implementation Boundaries:** Shield earning (every 600 XP), shield spending, emergency pause toggle, comeback badge issuance. No false completion or unearned XP.
 * **TDD & Verification:**
@@ -144,21 +145,17 @@ Each development slice operates under distinct lifecycle checkpoints:
 * **Implementation Boundaries:** Data visualization, level rewards/badges, profile and settings management. Reusable UI components; responsive layouts, complete accessibility semantics, and OS-level reduced-motion compliance.
 * **TDD & Verification:**
   - Analytics aggregation accuracy tests.
-  - Comprehensive accessibility and contrast audit across screen reader semantics, 44pt/48dp touch targets, dynamic type scaling, WCAG 2.2 AA contrast, and platform-level reduced-motion compliance in dark and light modes, verifying that continuous accessibility standards established from Slice 0 hold across the unified user journey.
+  - Comprehensive accessibility audit across screen reader semantics, 44pt/48dp touch targets, dynamic type scaling, WCAG 2.2 AA contrast, and platform-level reduced-motion compliance in dark and light modes, verifying that continuous accessibility standards established from Slice 0 hold across the unified user journey.
 * **Security & Accessibility:** Sanitized logging (no raw AI chat transcripts or personal habit text in telemetry); GDPR data export and account deletion flows.
 * **Acceptance Criteria:** Full onboarding to daily tracking to insights loop functional; passes comprehensive accessibility and contrast audit.
 * **Owner Approval Checkpoint:** Owner reviews complete journey and accessibility audit.
 
 ---
 
-### Slice 6: Monetization, Store Compliance & Beta Release
-* **Objective:** Separate free closed beta distribution from paid monetization; package native builds for Google Play internal/closed testing and Apple TestFlight; prepare store compliance for public launch.
+### Slice 6: Monetization, Store Compliance & Beta Release (Gate 5)
+* **Objective:** Package native builds for Google Play internal/closed testing and Apple TestFlight for closed beta; prepare monetization and store compliance for public launch.
 * **Approved Stitch References:** Screen 24 (Plus / Entitlements).
-* **Beta vs. Monetization Separation:**
-  1. **Free Native Closed Beta (Prerequisite: Slices 0–5 complete):** Distributed via Google Play internal/closed testing and Apple TestFlight. Validates the end-to-end core habit loop without requiring in-app purchase infrastructure or subscription fees.
-  2. **Paid Subscription Implementation (Slice 6 scope):** In-app purchases, StoreKit, Google Play Billing, server-side receipt validation, and entitlement gating tested in sandbox. Requires separate owner approval of PD-16 (pricing & AI quotas) and `ADR-009`.
-  3. **Public App Store & Google Play Release:** Full commercial compliance, store listings, privacy declarations, and production telemetry verified.
-* **Required Product Decisions:** PD-16 (Paid tiers, subscription pricing, premium AI quotas — required for paid monetization, not free beta).
+* **Required Product Decisions:** PD-16 (Paid tiers, subscription pricing, premium AI quotas). *Note: Paid subscriptions are NOT required for the initial free closed beta.*
 * **Required ADRs:**
   - `ADR-009` (Store In-App Purchases & Entitlements).
   - `ADR-011` (Release Engineering, Signing, CI/CD).
@@ -168,21 +165,20 @@ Each development slice operates under distinct lifecycle checkpoints:
   - Crash reporting and rollback verification.
 * **Security & Accessibility:** Store privacy compliance, MASVS/MASTG security baseline, dependency vulnerability audit.
 * **Acceptance Criteria:** Free closed beta distributed to testers on Android (Play Console) and iOS (TestFlight); subsequent paid tier verified on sandbox accounts; owner signs off public release build.
-* **Owner Approval Checkpoint:** Owner signoff on free beta distribution build, paid entitlement sandbox verification, and production release build.
+* **Owner Approval Checkpoint:** Owner signoff on beta distribution build and production release build.
 
 ---
 
-## Retained Governance & Engineering Controls
+## Outstanding Governance & Quality Invariants
 
-To ensure continuous project control across all slices, the following foundational governance requirements from the initial project baseline remain active and mandatory:
-
-1. **Branch Protection & Review Process:** Work remains on topic branches; `main` is protected; all changes merge via pull requests with evidence.
-2. **Project Agent Skill Approval:** Only reviewed, approved skills are maintained in `.agents/skills/`; bulk untrusted external skills are barred.
-3. **Product Decision Traceability:** Every business rule and numerical parameter maps to an explicit, approved decision in `docs/product/DECISION_REGISTER.md`.
-4. **Stitch Design Token Verification:** UI components derive from verified tokens in `docs/design/DESIGN.md` matching approved Stitch exports.
-5. **UI State & Accessibility Reviews:** Component states (default, loading, error, empty) and contrast/scaling reviews follow `docs/design/DESIGN_REVIEW.md`.
-6. **Architecture-First Implementation:** Relevant ADRs in `docs/architecture/ARCHITECTURE_PLAN.md` must be approved before coding any slice.
-7. **Continuous TDD & Code Review:** Every code change requires passing automated tests and verification against `prompts/003-code-review.md`.
-8. **Security & Privacy Testing:** Continuous enforcement of OWASP MASVS baseline, RLS isolation, and data protection rules per `docs/quality/TEST_SECURITY_RELEASE.md`.
-9. **Native Device Verification:** Native Android build verification in Slice 0; native iOS compilation verified when macOS/Xcode build environment is active.
-10. **Release Readiness:** Production builds require explicit owner sign-off and documented rollback procedures.
+The following governance and quality requirements from Phase 0 and earlier roadmaps remain active invariants across all development slices:
+- **Branch Protection & Review Process (Gate 0 DRAFT):** Protected `main` branch with required PR reviews, CI passing checks, and linear git history.
+- **Project-Specific Agent Skill Approval (Gate 0 DRAFT):** Project-owned agent skills maintained in `.agents/skills/` only when individually reviewed; no bulk installation of unvetted external repositories.
+- **Product Decision Traceability:** Every business rule implemented must map directly to an approved decision ID in `docs/product/DECISION_REGISTER.md` with explicit acceptance tests.
+- **Stitch Design Token Verification:** All colors, typography, spacing, and component specs must be extracted and verified from approved Stitch master designs into `docs/design/DESIGN.md` before implementation.
+- **UI State & Accessibility Review:** Continuous review of light/dark themes, empty/error/loading states, safe-area compliance, 44pt/48dp touch targets, and platform reduced motion (`docs/design/DESIGN_REVIEW.md`).
+- **Slice-Scoped Architecture Sign-Off:** Each vertical slice requires explicit owner review and approval of its prerequisite ADRs before code is written.
+- **TDD & Independent Code Review:** Strict TDD (failing invariant/negative tests before implementation); independent code review standard enforced via `prompts/003-code-review.md`.
+- **Security & Privacy Testing:** OWASP MASVS/MASTG mobile baseline, RLS denial tests, server-authoritative calculations, and zero client-side secrets.
+- **Native Device Verification:** Native Android build and device/emulator execution verified in Slice 0; native iOS compilation verified in macOS/Xcode or approved hosted build environment.
+- **Release Readiness Sign-Off:** Final release readiness checklist (`docs/quality/TEST_SECURITY_RELEASE.md`) verified before public distribution.
