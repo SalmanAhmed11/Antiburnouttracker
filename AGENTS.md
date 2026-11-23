@@ -1,6 +1,6 @@
 # Anti Burnout — Permanent Agent Instructions
 
-This is the repository for Anti Burnout, an AI Habit Tracker & Coach. **Current phase: product decision baseline and editable UI/UX validation. Production coding has not been authorised.**
+This is the repository for Anti Burnout, an AI Habit Tracker & Coach. **Development follows the merged progressive, slice-scoped roadmap.** Only explicitly owner-approved work for the active slice is authorised; completing planning does not authorise subsequent coding.
 
 ## Required start-of-session reading
 1. Read `docs/operations/CURRENT_STATE.md` to identify the active phase and next approved task.
@@ -17,7 +17,7 @@ This is the repository for Anti Burnout, an AI Habit Tracker & Coach. **Current 
 
 ## Non-negotiable safety and quality rules
 - Do not add features, numerical game rules, third-party packages, backend services or novel page designs without an approved requirement / decision ID.
-- For the current phase, write **documentation and review plans only**. No Flutter scaffold, Supabase project, app code, shell installs or deployments without a separately approved task.
+- **Implementation scope:** No production Flutter, Supabase, AI, data or other app changes outside the currently approved development task. For 2026-11-23, the owner has authorised **S0-A only** (minimal Android/iOS Flutter scaffold and Android build verification), conditional on the Slice 0 specification PR being merged and fresh workstation verification. S0-B/C/D require additional explicit authorisation. No backend provisioning or deployment during S0-A.
 - Do not touch secrets, billing, production data, permissions or destructive Git commands without explicit approval.
 - Do not claim tests have passed if they have not been run. Show commands and evidence from the actual environment.
 - Keep work on a topic branch; do not force-push or directly overwrite `main`.
@@ -25,7 +25,7 @@ This is the repository for Anti Burnout, an AI Habit Tracker & Coach. **Current 
 - Distinguish LOCKED, WORKING/PROPOSED, REFERENCE and NOT BUILT decisions. A recommendation is not consent.
 - The AI Coach can recommend but never unilaterally change targets, award XP, spend shields or alter history.
 - Review designs in both light/dark, accessible text scaling, safe areas and offline/error states; no fabricated metrics.
-- For implementation later: requirements → ADR (if significant) → failing relevant tests → small change → execution evidence → review → user approval.
+- For implementation: requirements → approved slice-relevant ADR → failing relevant tests where meaningful → small change → real execution evidence → review → user approval.
 
 ## Session-end handoff
 Update `docs/operations/CURRENT_STATE.md` and add a short sanitized record under `docs/operations/sessions/` using `TEMPLATE.md`. Include what was changed, decision IDs, verification run, risks/blockers, Git commit/PR links and **one next task**. Show the owner the diff and seek approval before commit/push when the active task requires it. Never assume a local edit survives a university-computer reset.

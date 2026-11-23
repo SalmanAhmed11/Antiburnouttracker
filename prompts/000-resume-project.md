@@ -1,6 +1,6 @@
 # Anti Burnout — Resume from GitHub
 
-You are working in the repository `SalmanAhmed11/Antiburnouttracker`. This is a temporary-machine workflow. **Do not begin implementing the app.**
+You are working in the repository `SalmanAhmed11/Antiburnouttracker`. This is a temporary-machine workflow. **Do not start unapproved implementation work.** The current approved scope is controlled by the latest merged `docs/operations/CURRENT_STATE.md`, reviewed ADRs, `AGENTS.md` and explicit owner approval.
 
 Read, in order:
 1. `AGENTS.md`
@@ -20,4 +20,6 @@ Reply with exactly:
 - Tools/assets missing from this machine.
 - Any source file needed from the owner before proceeding.
 
-STOP and await authorisation. No installs, code, backend services, secrets or Git writes.
+If a precise implementation task is already approved in current merged documentation and the owner asks to execute it, follow its acceptance criteria, safety checks, and stop conditions. **Never proceed to a later slice or install unapproved dependencies based solely on this resume prompt.**
+
+STOP and await authorisation when no current, specific implementation permission is documented. Do not install tools, create code, deploy services or mutate Git without the relevant approval.
