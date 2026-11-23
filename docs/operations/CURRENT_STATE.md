@@ -1,81 +1,56 @@
 # Current State — Anti Burnout
 
-**Last documented review:** 2026-11-23 (Progressive SDLC Roadmap & Slice-Scoped Architecture Draft)
-**Phase:** Gate 0 (Continuity & Control) in DRAFT; Progressive SDLC Framework DRAFT on branch `docs/progressive-sdlc-roadmap`.
-**Production code:** NOT STARTED (strictly no application code authorized; documentation-only draft).
-**Source of truth:** GitHub repository (`https://github.com/SalmanAhmed11/Antiburnouttracker`) is the source of truth for all project documentation and engineering memory.
+**Last documented review:** 2026-11-23 (Slice 0 owner architecture approval & controlled initial implementation authorisation)
+**Current governance:** Progressive slice-scoped SDLC merged via PR #4; Gate 0 outstanding controls remain DRAFT.
+**Application code:** NOT STARTED. No build, tests or infrastructure deployment claimed.
+**Source of truth:** https://github.com/SalmanAhmed11/Antiburnouttracker
 
----
+## Verified project history and scope
+- PR #1 — project continuity baseline merged 2026-11-20.
+- PR #2 — status/session handoff merged 2026-11-20.
+- PR #3 — verified toolchain/native strategy baseline merged 2026-11-20.
+- PR #4 — progressive SDLC seven-slice roadmap merged 2026-11-23, `main` observed at `13fbce23f530e5803c85097468be79c1657469e1` before preparing this documentation.
+- Native Android and iOS Flutter app only, shared Dart codebase; no Flutter Web/PWA/Cloudflare beta.
+- Product baseline: Snowball Effect; Today/Habits/Insights/Coach; 100 reference XP Green; negotiated qualifying Yellow proportional XP; 600 XP per shield, two wallet max; free indefinite manual pause. Edge-case XP, weekly and monetisation decisions not silently resolved.
+- Dynamic AI Coach will generate contextual conversations; only typed proposals subject to independent server validation and explicit user consent. Supabase remains a preferred candidate requiring later ADR approval; none is provisioned.
+- MVP animations: lightweight onboarding, essential microinteractions, static/pre-rendered Coach visual acceptable. Accessibility and reduced-motion checks start in Slice 0.
+- Manual Stitch dark/light designs exist for 26 screens and 8 flows. Six original HTML exports for screens 01/06/21 (both modes) were inspected for token extraction in `docs/design/DESIGN.md`; native artwork/fonts and screen fidelity need separate review.
 
-## Confirmed Progress & Architectural Direction
-- **Progressive SDLC Framework Approved in Principle (2026-11-23):** Transitioned from rigid monolithic waterfall gates to a progressive, slice-scoped delivery model across seven vertical slices (Slices 0–6).
-- **Core Product Baseline (LOCKED):**
-  - Philosophy: Snowball Effect; low-pressure accountability, voluntary momentum.
-  - Primary tabs: Today, Habits, Insights, Coach.
-  - Coach selection: Two approachable 3D-looking character choices; custom name; Easy/Medium/Hard tone settings (tone does not modify scoring).
-  - Status semantics: Green = target fully met (100 base reference XP); Yellow = negotiated meaningful minimum with proportional XP; Red = missed commitment. Original targets remain historically auditable.
-  - Gamification & recovery: 1 shield per 600 XP (max 2 stored, manual use); free indefinite manual emergency pause; comeback badges.
-- **Dynamic AI Coach Core Principles:**
-  - Dynamic, natural, context-aware dialogue; never static decision trees or scripted responses.
-  - Structured proposal tool calling only (`propose_habit_reduction`). Client-side UI confirmation enables informed consent, but the trusted backend independently enforces authentication, RLS tenant isolation, schema/business-rule validation, and idempotency.
-  - Authorised database queries for user habit context; RAG clarified as optional retrieval, not prompt-injection security.
-- **Platform Strategy (Owner Confirmed):**
-  - Native iOS and Android application built using a shared Flutter/Dart codebase.
-  - Out of scope: Flutter Web, Progressive Web Apps (PWA), Cloudflare Pages hosting, and separate web-based betas.
-  - Workstation constraints: Windows workstation supports Flutter development, testing, and Android builds; native iOS compilation requires macOS/Xcode or an approved hosted macOS build environment; early Android native build verification milestone established in Slice 0.
-- **Backend Architecture:** Supabase preferred candidate for auth, PostgreSQL, RLS, Edge Functions, and server-authoritative scoring; evaluated progressively per slice.
-- **MVP Interaction & Animation Direction (Owner Confirmed):** Meaningful, dynamic user interactions prioritized over elaborate visual animations. Reusable UI components; animations strictly separated from business logic; no unnecessary animation engines. Approved MVP scope: smooth onboarding transitions, essential microinteractions (navigation, check-in, validation, progress), dynamic LLM dialogue, lightweight coach representation (static portraits or small set of pre-rendered expression states from approved assets), and platform-compliant reduced-motion support (iOS Reduce Motion / Android Remove animations; MediaQuery.disableAnimationsOf is an accessibility query signal, requiring individually designed and tested fallback transitions). Accessibility applies continuously starting from Slice 0. Deferred to post-MVP: complex real-time 3D animations, pet companion environments, avatar gestures, voice-driven animations, and elaborate gamification sequences.
-- **Visual Design Baseline:** 26 screen templates and 8 interaction flows drafted in master document; manual Stitch design work completed by owner. Visual token extraction required in Slice 0 (unverified colors remain PROPOSED, not LOCKED).
+## Owner decisions on 23 November 2026
+- **ADR-001 ACCEPTED for Slice 0:** Option A — Flutter SDK-first feature-oriented MVVM with built-in state mechanisms (`ChangeNotifier`/`ValueNotifier`) and constructor injection; reevaluate at Slice 1.
+- **ADR-002 ACCEPTED for Slice 0:** Option B — `go_router` with `StatefulShellRoute.indexedStack`; exact compatible dependency version must be reviewed before package installation.
+- **Slice 0 scope:** Welcome, four-tab navigation shell, Appearance theme setting, verified design tokens, accessibility and native Android build checks. No production authentication, backend, AI, XP, habit domain, subscriptions or unreviewed assets.
+- **S0-A ONLY is owner-authorised:** inspect tools and clean repository, prepare minimal native Flutter scaffold, run actual baseline checks and an Android smoke-test build. This permission becomes effective **after this documentation pack is reviewed and merged**. S0-B/C/D are not yet authorised.
+- Historical numerical PD-01/05 details remain OPEN as documented; the owner chose progressive decisions before each relevant slice, not all 18 before building a shell.
 
----
+## Current workstation uncertainty
+- Antigravity workspace last observed at `C:\Users\k2554693\.gemini\antigravity\scratch\Antiburnouttracker`, but must be reverified on use.
+- Flutter 3.50.1/Dart 3.14.0 were verified on 2026-11-20. After the university-PC session reset, Flutter files were reported missing; do not assume current installation or PATH is working.
+- Android Studio 2024.3.2 and Android SDK APIs 33–36 were previously observed, licenses accepted. Android emulator/device running and native APK build remain unverified.
+- iOS build requires macOS/Xcode or approved hosted macOS environment; Windows can maintain Flutter/iOS source but cannot verify native iOS compilation.
+- `gh.exe` credential-helper path previously failed, while ordinary `git push` subsequently succeeded. Do not infer a working GitHub CLI.
 
-## Progressive Slice Dependency Summary
+## Outstanding gates and blockers
+- Gate 0: GitHub branch protections, reviewed project-specific skills. Do not mark complete without evidence.
+- Slice 0: merge this documentation pack; owner verify native assets/font usage; after S0-A, approve S0-B/C scope. ADR-001/002 are owner-selected; no build tests have been executed.
+- Later slices: ADR-003..012 and relevant PD questions remain pending slice-specific review. No backend or external beta authorisation.
 
-1. **Slice 0:** Flutter Native Foundation & Design System (`ADR-001`, `ADR-002`, verified Stitch tokens). *Earliest buildable Flutter feature.*
-2. **Slice 1:** Habit Domain, Authentication, Scheduling, Secure Check-ins & XP Ledger Foundation (`ADR-003`, `ADR-004`, `ADR-005`, `ADR-006`).
-3. **Slice 2:** Early Dynamic AI Coach Proof of Concept (`ADR-008`).
-4. **Slice 3:** Yellow Renegotiation, Proportional Scoring & Streak Logic (Extended `ADR-004`).
-5. **Slice 4:** Recovery Mechanics (Shields, Emergency Pause, Comebacks) (`ADR-007`, `ADR-012`).
-6. **Slice 5:** Insights, Progress, Levels & Complete Journey Polish (`ADR-010`).
-7. **Slice 6:** Monetization, Store Compliance & Release Readiness (`ADR-009`, `ADR-011`). *Paid monetization explicitly separated from initial free closed beta.*
+## Single next task
+**Publish this documentation pack on a topic branch and merge through an owner-reviewed PR. Once merged, execute only S0-A (native Flutter scaffold + Android toolchain smoke test) with real terminal evidence and a separate implementation PR.**
 
----
+## Next step not yet authorised
+S0-B theme tokens/native UI implementation, S0-C full shell/welcome, S0-D further polish, and all Supabase/AI/product logic require separate explicit owner approval.
 
-## Active Next Task (One Task Only)
-**Commit and push the Progressive SDLC Roadmap documentation diff on branch `docs/progressive-sdlc-roadmap` for owner PR review. Upon approval, proceed to Slice 0 prerequisites (verify design tokens from Stitch exports, draft ADR-001 and ADR-002).**
-
----
-
-## Following Step (Not Yet Authorised)
-Following owner approval of Slice 0 prerequisites, seek authorization to begin Slice 0 implementation (scaffold Flutter native project shell, configure theme tokens, build 4-tab shell navigation, and verify Android build).
-
----
-
-## Session Record & Project History
-- **PR #1:** Phase 0B Project continuity & governance baseline merged (`4eea302`).
-- **PR #2:** Phase 0D Update Phase 0 status and session handoff merged (`fb5e712`).
-- **PR #3:** SDLC toolchain baseline & verified environment reconciliation merged on 2026-11-20 (`635c1b8`).
-- **Prior session record:** [`docs/operations/sessions/2026-11-20-sdlc-toolchain-baseline.md`](sessions/2026-11-20-sdlc-toolchain-baseline.md).
-- **Current session branch:** `docs/progressive-sdlc-roadmap` (progressive SDLC roadmap adoption).
-
----
-
-## Workstation Environment Status (Distinction: Prior Audit vs. Current Session)
-- **Repository:** `C:\Users\k2554693\.gemini\antigravity\scratch\Antiburnouttracker`; remote `origin/main` synchronized at `635c1b8`.
-- **Flutter SDK:** Flutter 3.50.1 (stable) and Dart 3.14.0 verified on 2026-11-20 at `C:\Users\k2554693\develop\flutter`. *Current status:* Following a temporary university-PC reset/fresh session, Flutter/Dart is not currently present on this machine's local disk until re-extracted or verified with fresh evidence prior to Slice 0 compilation.
-- **Android SDK & Studio:** Android Studio 2024.3.2 and Android SDK platforms (APIs 33–36) present at `C:\Apps\Android`; build-tools and licenses accepted. Native Android build execution and emulator testing remain outstanding (scheduled as Slice 0 milestone).
-- **iOS Toolchain:** Native iOS compilation requires macOS/Xcode or an approved hosted macOS build environment (Windows workstation).
-- **Plugin & MCP:** Flutter plugin v1.0.7 active; `dart-mcp-server` connected. Official Flutter/Dart skills (25) and `flutter_a11y_agent` subagent available.
-
----
-
-## Source References
-- Repo: https://github.com/SalmanAhmed11/Antiburnouttracker
-- Rules: `AGENTS.md`
-- Roadmap: `docs/ROADMAP.md`
-- Architecture plan: `docs/architecture/ARCHITECTURE_PLAN.md`
-- Product baseline: `docs/product/PRODUCT_BASELINE.md`
-- Decision register: `docs/product/DECISION_REGISTER.md`
-- Design review: `docs/design/DESIGN_REVIEW.md`
-- Quality/Security: `docs/quality/TEST_SECURITY_RELEASE.md`
-- Code review standard: `prompts/003-code-review.md`
+## References
+- `AGENTS.md`
+- `docs/ROADMAP.md`
+- `docs/product/PRODUCT_BASELINE.md`
+- `docs/product/DECISION_REGISTER.md`
+- `docs/design/DESIGN.md`
+- `docs/design/DESIGN_REVIEW.md`
+- `docs/architecture/ARCHITECTURE_PLAN.md`
+- `docs/architecture/decisions/ADR-001-flutter-foundation.md`
+- `docs/architecture/decisions/ADR-002-navigation-routing.md`
+- `docs/quality/SLICE0_ACCEPTANCE.md`
+- `docs/quality/TEST_SECURITY_RELEASE.md`
+- `prompts/000-resume-project.md`
